@@ -14,7 +14,6 @@ class Ui_MainWindow(object):
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-color: rgb(79, 79, 79);")
         MainWindow.setWindowTitle("Таймер автовыключения")
-        MainWindow.setWindowIcon(QtGui.QIcon("timer.png"))
 
         # инициализация центрального виджета
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -208,6 +207,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    app.setWindowIcon(QtGui.QIcon('clock.ico'))
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
