@@ -10,4 +10,5 @@ pip install -r requirements.txt
 python interface.py
 ```
 2) Запустить исполняемый файл [interface.exe](https://github.com/Lesh4/Timer/tree/master/dist/interface/interface.exe)
-Внимание! Для корректной работы exe файла его нужно запускать из папки interface. Т.е. для успешной работы нужно скачать всю папку
+
+Внимание! Для корректной работы exe файла его нужно запускать из папки interface
