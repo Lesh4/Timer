@@ -9,4 +9,4 @@
 pip install -r requirements.txt
 python interface.py
 ```
-2) Запустить исполняемый файл [interface.exe](https://github.com/Lesh4/Timer/tree/master/dist/interface/master/interface.exe)
+2) Запустить исполняемый файл [interface.exe](https://github.com/Lesh4/Timer/tree/master/dist/interface/interface.exe)
