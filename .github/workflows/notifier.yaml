@@ -1,26 +1,23 @@
 name: Telegram Notifier
 
 on:
-  push:
+  pull_request:
     branches:
       - master
   workflow_dispatch:
 
 jobs:
-
   build:
-    name: Build
+    name: send msg
     runs-on: ubuntu-latest
     steps:
-      - name: send telegram message on push
+      - name: send telegram message on pull_request
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
+            ${{ github.actor }} open pull_request:
+            https://github.com/${{ github.repository }}/pull/${{github.sha}}
             
             Repository: ${{ github.repository }}
-            
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
