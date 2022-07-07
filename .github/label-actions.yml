@@ -1,0 +1,13 @@
+# Configuration for Label Actions - https://github.com/dessant/label-actions
+
+# The `heated` label is added to issues, pull requests or discussions
+test:
+  # Post a comment
+  comment: >
+    Добавлена метка test
+
+# The `heated` label is removed from issues, pull requests or discussions
+-test:
+  comment: >
+    Метку тест убрали
+
