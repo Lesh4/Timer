@@ -18,6 +18,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.actor }} open pull_request:
-            https://github.com/${{ github.repository }}/pull/${{github.sha}}
+            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
