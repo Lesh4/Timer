@@ -19,7 +19,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} add teamlead label:
+            ${{ github.actor }} add 🔴teamlead label
             
             PR link:
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
@@ -36,8 +36,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            👀
-            ${{ github.actor }} add review label:
+            ${{ github.actor }} add 🟠review label
             
             PR link:
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
