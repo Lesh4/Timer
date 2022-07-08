@@ -19,9 +19,9 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            @Sean_bot html
             ${{ github.actor }} add teamlead label:
             
+            PR link:
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
@@ -38,6 +38,7 @@ jobs:
           message: |
             ${{ github.actor }} add review label:
             
+            PR link:
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
