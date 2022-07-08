@@ -2,7 +2,7 @@ name: Telegram Notifier
 
 on:
   pull_request:
-    types: [synchronize, opened, reopened, edited, closed]
+    types: [synchronize, opened, reopened, edited, closed, labeled, unlabeled]
     branches:
       - master
   workflow_dispatch:
@@ -24,12 +24,14 @@ jobs:
             ${{ github.event.label.name == 'teamlead' }}
             ${{ github.event.label.name == 'review' }}
             
+            toJson(github)
+            
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
 
   send_msg_teamlead:
-    if: ${{ github.event.label.name == 'teamlead' }}
+    if: contains(github.event.pull_request.labels.*.name, 'teamlead')
     name: send msg
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +47,7 @@ jobs:
             
             Repository: ${{ github.repository }}
   send_msg_review:
-    if: ${{ github.event.label.name == 'review' }}
+    if: contains(github.event.pull_request.labels.*.name, 'review')
     name: send msg
     runs-on: ubuntu-latest
     steps:
