@@ -2,23 +2,42 @@ name: Telegram Notifier
 
 on:
   pull_request:
+    types: [synchronize, opened, reopened, edited, closed]
     branches:
       - master
   workflow_dispatch:
 
 jobs:
-  build:
+  send_msg_teamlead:
+    if: ${{ github.event.label.name == 'teamlead' }}
     name: send msg
     runs-on: ubuntu-latest
     steps:
-      - name: send telegram message on pull_request
+      - name: send telegram message on pull_request with label teamlead
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} open pull_request:
+            ${{ github.actor }} open/changed pull_request with teamlead label:
             
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
+  send_msg_review:
+    if: ${{ github.event.label.name == 'review' }}
+    name: send msg
+    runs-on: ubuntu-latest
+    steps:
+      - name: send telegram message on pull_request with label review
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} open/changed pull_request with review label:
+            
+            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
+            
+            Repository: ${{ github.repository }}
+    
