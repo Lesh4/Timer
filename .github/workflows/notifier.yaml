@@ -2,7 +2,7 @@ name: Telegram Notifier
 
 on:
   pull_request:
-    types: [labeled]
+    types: [labeled, edited]
     branches:
       - master
   workflow_dispatch:
@@ -40,4 +40,22 @@ jobs:
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
+  send_msg_comment:
+    if: contains(github.event.pull_request.labels.*.name, 'review')
+    name: send message if comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: send message if comment
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} add comment:
+            
+            ${{ github.event.comment.html_url }}
+            
+            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
+            
+            Repository: ${{ github.repository }}        
     
