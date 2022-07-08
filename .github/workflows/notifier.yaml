@@ -8,31 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: send msg
-    runs-on: ubuntu-latest
-    steps:
-      - name: send telegram message on pull_request
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            ${{ github.actor }} open pull_request:
-            
-            Labels: ${{ github.event.label.name }}
-            ${{ github.event.label.name == 'teamlead' }}
-            ${{ github.event.label.name == 'review' }}
-            
-            toJson(github)
-            
-            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
-            
-            Repository: ${{ github.repository }}
-
   send_msg_teamlead:
     if: contains(github.event.pull_request.labels.*.name, 'teamlead')
-    name: send msg
+    name: send message if label teamlead
     runs-on: ubuntu-latest
     steps:
       - name: send telegram message on pull_request with label teamlead
@@ -41,14 +19,14 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} open/changed pull_request with teamlead label:
+            ${{ github.actor }} add teamlead label:
             
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
   send_msg_review:
     if: contains(github.event.pull_request.labels.*.name, 'review')
-    name: send msg
+    name: send message if label review
     runs-on: ubuntu-latest
     steps:
       - name: send telegram message on pull_request with label review
@@ -57,7 +35,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} open/changed pull_request with review label:
+            ${{ github.actor }} add review label:
             
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
