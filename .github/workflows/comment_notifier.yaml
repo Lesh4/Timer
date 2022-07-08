@@ -17,7 +17,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} add comment:
+            ${{ github.actor }} add 🟣comment
             
             Comment:
             ${{ github.event.comment.body }}
