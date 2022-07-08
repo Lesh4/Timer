@@ -1,9 +1,8 @@
 name: Telegram Comment Notifier
 
 on:
-  pull_request_review_comment:
-    types: [created, edited]
-    branches: [master]
+  issue_comment:
+    types: [created, edited, deleted]
   workflow_dispatch:
 
 jobs:
