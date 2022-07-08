@@ -8,6 +8,7 @@ on:
 jobs:
   send_msg_comment:
     name: send message if comment
+    if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
       - name: send message if comment
@@ -19,6 +20,12 @@ jobs:
             ${{ github.actor }} add comment:
             
             ${{ github.event.comment.html_url }}
+            
+            ${{ github.event.comment.body }}
+            ${{ github.event.comment.author }}
+            
+            
+            ${{ github.event.comment.bodyHTML }}
             
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
