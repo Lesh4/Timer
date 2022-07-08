@@ -5,8 +5,6 @@ on:
     types: [labeled, edited]
     branches:
       - master
-  pull_request_review_comment:
-    types: [created, edited]
   workflow_dispatch:
 
 jobs:
@@ -21,9 +19,10 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
+            @Sean_bot html
             ${{ github.actor }} add teamlead label:
             
-            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
+            <span style="white-space: nowrap;">https://github.com/${{ github.repository }}/pull/${{ github.event.number }}</span>
             
             Repository: ${{ github.repository }}
   send_msg_review:
@@ -42,21 +41,3 @@ jobs:
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
-  send_msg_comment:
-    name: send message if comment
-    runs-on: ubuntu-latest
-    steps:
-      - name: send message if comment
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            ${{ github.actor }} add comment:
-            
-            ${{ github.event.comment.html_url }}
-            
-            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
-            
-            Repository: ${{ github.repository }}        
-    

@@ -25,7 +25,4 @@ jobs:
             Comment link:
             ${{ github.event.comment.html_url }}
             
-            PR link:
-            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
-            
             Repository: ${{ github.repository }}
