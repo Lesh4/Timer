@@ -19,13 +19,11 @@ jobs:
           message: |
             ${{ github.actor }} add comment:
             
-            ${{ github.event.comment.html_url }}
-            
+            ${{ github.event.comment.authorAssociation}}
+            ${{ github.authorAssociation}}
             ${{ github.event.comment.body }}
-            ${{ github.event.comment.author }}
             
-            
-            ${{ github.event.comment.bodyHTML }}
+            ${{ github.event.comment.html_url }}
             
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
