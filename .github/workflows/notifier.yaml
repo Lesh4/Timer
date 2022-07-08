@@ -22,7 +22,7 @@ jobs:
             @Sean_bot html
             ${{ github.actor }} add teamlead label:
             
-            <span style="white-space: nowrap;">https://github.com/${{ github.repository }}/pull/${{ github.event.number }}</span>
+            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
   send_msg_review:
