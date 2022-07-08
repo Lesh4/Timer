@@ -20,7 +20,7 @@ jobs:
           message: |
             ${{ github.actor }} open pull_request:
             
-            ${{ github.event.label.name }}
+            Labels: ${{ github.event.label.name }}
             ${{ github.event.label.name == 'teamlead' }}
             ${{ github.event.label.name == 'review' }}
             
