@@ -1,0 +1,26 @@
+name: Telegram Comment Notifier
+
+on:
+  pull_request_review_comment:
+    types: [created, edited]
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  send_msg_comment:
+    name: send message if comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: send message if comment
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} add comment:
+            
+            ${{ github.event.comment.html_url }}
+            
+            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
+            
+            Repository: ${{ github.repository }}
