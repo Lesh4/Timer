@@ -2,7 +2,7 @@ name: Telegram Notifier
 
 on:
   pull_request:
-    types: [synchronize, opened, reopened, edited, closed, labeled, unlabeled]
+    types: [labeled]
     branches:
       - master
   workflow_dispatch:
