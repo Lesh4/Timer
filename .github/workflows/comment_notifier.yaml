@@ -19,12 +19,13 @@ jobs:
           message: |
             ${{ github.actor }} add comment:
             
-            ${{ github.event.comment.authorAssociation}}
-            ${{ github.authorAssociation}}
+            Comment:
             ${{ github.event.comment.body }}
             
+            Comment link:
             ${{ github.event.comment.html_url }}
             
+            PR link:
             https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
             
             Repository: ${{ github.repository }}
