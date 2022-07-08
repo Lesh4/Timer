@@ -41,7 +41,6 @@ jobs:
             
             Repository: ${{ github.repository }}
   send_msg_comment:
-    if: contains(github.event.pull_request.labels.*.name, 'review')
     name: send message if comment
     runs-on: ubuntu-latest
     steps:
