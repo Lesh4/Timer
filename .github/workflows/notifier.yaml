@@ -22,7 +22,8 @@ jobs:
       - name: Create empty commit
         run: |
           # setup the username and email. Using 'GitHub Actions Bot' with no email by default
-          echo "#${{ steps.regex-match.outputs.group1 }}[IN PROGRESS]"
+          echo "${{ steps.regex-match.inputs.text }}"
+          echo "#${{ steps.regex-match.outputs.match }}[IN PROGRESS]"
 #          git config user.name "GitHub Actions Bot"
 #          git config user.email "<>"
 #          git commit --allow-empty -m "#${{ steps.regex-match.outputs.group1 }}[IN PROGRESS]"
