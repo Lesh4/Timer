@@ -9,7 +9,6 @@ jobs:
     if: ${{ github.event.label.name == 'potom' }}
     runs-on: ubuntu-latest
     steps:
-      # Checkout the branch
       - name: checkout
         uses: actions/checkout@v2
 
