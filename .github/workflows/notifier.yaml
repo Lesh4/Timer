@@ -1,11 +1,50 @@
-name: Create Commit with Regex Match
+name: Label Worker
 
 on:
   pull_request:
     types: [labeled]
+  workflow_dispatch:
 
 jobs:
-  create_commit:
+  send_msg_teamlead:
+    if: ${{ github.event.label.name == 'teamlead' }}
+    name: send message if label teamlead
+    runs-on: ubuntu-latest
+    steps:
+      - name: send telegram message on pull_request with label teamlead
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} added 🔴teamlead label. @vamos_7, check it out!
+            
+            🔀 PR title: ${{ github.event.pull_request.title }}
+            
+            🔀 PR link:
+            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
+            
+            📂 Repository: ${{ github.repository }}
+  send_msg_review:
+    if: ${{ github.event.label.name == 'review' }}
+    name: send message if label review
+    runs-on: ubuntu-latest
+    steps:
+      - name: send telegram message on pull_request with label review
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} added 🟠review label
+            
+            🔀 PR title: ${{ github.event.pull_request.title }}
+            
+            🔀 PR link:
+            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
+            
+            📂 Repository: ${{ github.repository }}
+  change_click_up_status:
     if: ${{ github.event.label.name == 'potom' }}
     runs-on: ubuntu-latest
     steps:
@@ -23,4 +62,4 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          git commit --allow-empty -m "${{ steps.regex-match.outputs.match }}[IN PROGRESS]"
+          git commit --allow-empty -m "${{ steps.regex-match.outputs.match }}[BACKLOG]"
