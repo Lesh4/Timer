@@ -12,14 +12,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name Get regex match
+      - name: Get regex match
         uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
           text: ${{ github.event.pull_request.title }}
           regex: '[^#]*$'
 
-      - name Create empty commit
+      - name: Create empty commit
         if: ${{ steps.regex-match.outputs.match != '' }}
         run: |
           # setup the username and email. Using 'GitHub Actions Bot' with no email by default
