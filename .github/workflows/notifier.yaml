@@ -9,8 +9,7 @@ jobs:
     if: ${{ github.event.label.name == 'potom' }}
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
@@ -19,12 +18,10 @@ jobs:
           regex: '[^#]*$'
 
       if: ${{ steps.regex-match.outputs.match != '' }}
-      - name: setup git config
-        run: |
-          # setup the username and email. Using 'GitHub Actions Bot' with no email by default
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
+      run: |
+        # setup the username and email. Using 'GitHub Actions Bot' with no email by default
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
 
-      - name: commit
-        run: |
-          git commit --allow-empty -m "#${{ steps.regex-match.outputs.group1 }}[IN PROGRESS]"
+      run: |
+        git commit --allow-empty -m "#${{ steps.regex-match.outputs.group1 }}[IN PROGRESS]"
