@@ -1,27 +1,28 @@
-name: Create Comment with Regex Match
+name: Create Commit with Regex Match
 
 on:
   pull_request:
     types: [labeled]
 
 jobs:
-  create_comment:
+  create_commit:
     if: ${{ github.event.label.name == 'potom' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions-ecosystem/action-regex-match@v2
+      - name Get regex match
+        uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
           text: ${{ github.event.pull_request.title }}
           regex: '[^#]*$'
 
-      if: ${{ steps.regex-match.outputs.match != '' }}
-      run: |
-        # setup the username and email. Using 'GitHub Actions Bot' with no email by default
-        git config user.name "GitHub Actions Bot"
-        git config user.email "<>"
-
-      run: |
-        git commit --allow-empty -m "#${{ steps.regex-match.outputs.group1 }}[IN PROGRESS]"
+      - name Create empty commit
+        if: ${{ steps.regex-match.outputs.match != '' }}
+        run: |
+          # setup the username and email. Using 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git commit --allow-empty -m "#${{ steps.regex-match.outputs.group1 }}[IN PROGRESS]"
