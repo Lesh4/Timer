@@ -17,7 +17,7 @@ jobs:
         id: regex-match
         with:
           text: ${{ github.event.pull_request.title }}
-          regex: '[^#]*$'
+          regex: '#.......'
 
       - name: Create empty commit
         if: ${{ steps.regex-match.outputs.match != '' }}
