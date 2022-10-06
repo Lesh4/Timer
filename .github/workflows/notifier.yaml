@@ -1,44 +1,31 @@
-name: Telegram Notifier
+name: Create Comment with Regex Match
 
 on:
   pull_request:
-    types: [labeled, edited]
-    branches:
-      - master
-  workflow_dispatch:
+    types: [labeled]
 
 jobs:
-  send_msg_teamlead:
-    if: contains(github.event.pull_request.labels.*.name, 'teamlead')
-    name: send message if label teamlead
+  create_comment:
+    if: ${{ github.event.label.name == 'potom' }}
     runs-on: ubuntu-latest
     steps:
-      - name: send telegram message on pull_request with label teamlead
-        uses: appleboy/telegram-action@master
+      # Checkout the branch
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
         with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            ${{ github.actor }} add 🔴teamlead label
-            
-            PR link:
-            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
-            
-            Repository: ${{ github.repository }}
-  send_msg_review:
-    if: contains(github.event.pull_request.labels.*.name, 'review')
-    name: send message if label review
-    runs-on: ubuntu-latest
-    steps:
-      - name: send telegram message on pull_request with label review
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            ${{ github.actor }} add 🟠review label
-            
-            PR link:
-            https://github.com/${{ github.repository }}/pull/${{ github.event.number }}
-            
-            Repository: ${{ github.repository }}
+          text: ${{ github.event.pull_request.title }}
+          regex: '[^#]*$'
+
+      if: ${{ steps.regex-match.outputs.match != '' }}
+      - name: setup git config
+        run: |
+          # setup the username and email. Using 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: commit
+        run: |
+          git commit --allow-empty -m "#${{ steps.regex-match.outputs.group1 }}[IN PROGRESS]"
