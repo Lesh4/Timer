@@ -27,3 +27,8 @@ jobs:
             ${{ github.event.comment.html_url }}
             
             📂 Repository: ${{ github.repository }}
+      -  name: set comment label
+         if: ${{ !contains(github.event.pull_request.labels.*.name, 'comment') }}
+         uses: actions-ecosystem/action-add-labels@v1
+         with:
+           labels: comments
