@@ -19,7 +19,7 @@ jobs:
           message: |
             ${{ github.actor }} added 🔴teamlead label. @vamos_7, check it out!
             
-            BRANCH: ${GITHUB_REF##*/}
+            BRANCH: ${{ GITHUB_REF##*/ }}
             
             🔀 PR title: ${{ github.event.pull_request.title }}
             
