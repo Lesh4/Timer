@@ -18,7 +18,7 @@ jobs:
         id: regex-match
         with:
           text: ${{ github.head_ref }}
-          regex: '#.......'
+          regex: '#(.*)'
       - name: send telegram message on pull_request with label teamlead
         if: ${{ github.event.label.name == 'teamlead' }}
         uses: appleboy/telegram-action@master
