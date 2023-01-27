@@ -1,9 +1,4 @@
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    types: [edited]
+on: [pull_request, pull_request_target]
 
 jobs:
   triage:
