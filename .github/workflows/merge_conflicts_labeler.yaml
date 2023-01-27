@@ -2,6 +2,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    types: [edited]
+
 jobs:
   triage:
     runs-on: ubuntu-latest
