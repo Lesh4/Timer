@@ -10,6 +10,15 @@ jobs:
     name: send Telegram message
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get regex match
+        uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
+        with:
+          text: ${{ github.head_ref }}
+          regex: '#(.*)'
       - name: send telegram message on pull_request with label teamlead
         if: ${{ github.event.label.name == 'teamlead' }}
         uses: appleboy/telegram-action@master
@@ -18,6 +27,8 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.actor }} added 🔴teamlead label. @vamos_7, check it out!
+            
+            Task ID: ${{ steps.regex-match.outputs.match }}
             
             🔀 PR title: ${{ github.event.pull_request.title }}
             
