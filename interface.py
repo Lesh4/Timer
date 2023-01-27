@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         self.interface_layout.setContentsMargins(0, 0, 0, 0)
         self.interface_layout.setObjectName("interface_layout")
 
-        # инициализация горизонтального лейаута, где будут часы
+        #инициализация горизонтального лейаута, где будут часы
         self.clock_layout = QtWidgets.QHBoxLayout()
         self.clock_layout.setObjectName("clock_layout")
 
