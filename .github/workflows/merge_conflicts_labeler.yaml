@@ -4,6 +4,8 @@ on:
       - master
   pull_request:
     types: [edited]
+  pull_request_target:
+    types: [edited]
 
 jobs:
   triage:
