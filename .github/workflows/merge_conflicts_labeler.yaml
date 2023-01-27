@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - master
+      - ${{ github.head_ref }}
+
 jobs:
   triage:
     runs-on: ubuntu-latest
