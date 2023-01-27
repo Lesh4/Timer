@@ -2,7 +2,8 @@ on:
   push:
     branches:
       - master
-      - ${{ github.head_ref }}
+  pull_request:
+    types: [edited]
 
 jobs:
   triage:
