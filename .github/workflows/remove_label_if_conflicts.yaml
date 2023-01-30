@@ -7,21 +7,22 @@ on:
 
 jobs:
   send_msg_review_comment:
+    if: contains(github.event.pull_request.labels.*.name, 'merge conflicts')
     name: send message if review comment
     runs-on: ubuntu-latest
     steps:
       - name: remove teamlead label
-        if: contains(github.event.pull_request.labels.*.name, 'teamlead') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
+        if: contains(github.event.pull_request.labels.*.name, 'teamlead')
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: teamlead
       - name: remove review label
-        if: contains(github.event.pull_request.labels.*.name, 'review') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
+        if: contains(github.event.pull_request.labels.*.name, 'review')
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: review
       - name: remove techlead label
-        if: contains(github.event.pull_request.labels.*.name, 'techlead') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
+        if: contains(github.event.pull_request.labels.*.name, 'techlead')
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: techlead
