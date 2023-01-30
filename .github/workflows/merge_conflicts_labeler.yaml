@@ -1,35 +1,38 @@
 name: Merge conflicts labeler
-
 on:
-  pull_request:
   push:
     branches:
       - test
       - dev
       - main
+  pull_request_target:
+    types: [synchronize]
+
 jobs:
-  triage:
+  main:
     runs-on: ubuntu-latest
     steps:
-      - name: set or remove
-        uses: mschilde/auto-label-merge-conflicts@master
+      - name: check if prs are dirty
+        if: contains(github.event.pull_request.labels.*.name, 'teamlead')
+        uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
-          CONFLICT_LABEL_NAME: "merge conflicts"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MAX_RETRIES: 5
-          WAIT_MS: 5000
-      - name: remove teamlead label
-        if: contains(github.event.pull_request.labels.*.name, 'teamlead') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
-        uses: actions-ecosystem/action-remove-labels@v1
+          dirtyLabel: "merge conflicts"
+          removeOnDirtyLabel: "teamlead"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request. <img src='https://media.giphy.com/media/0YUPDWMaHYZnIEW6Uo/giphy-downsized.gif'>"
+      - name: check if prs are dirty
+        if: contains(github.event.pull_request.labels.*.name, 'review')
+        uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
-          labels: teamlead
-      - name: remove review label
-        if: contains(github.event.pull_request.labels.*.name, 'review') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
-        uses: actions-ecosystem/action-remove-labels@v1
+          dirtyLabel: "merge conflicts"
+          removeOnDirtyLabel: "review"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request. <img src='https://media.giphy.com/media/0YUPDWMaHYZnIEW6Uo/giphy-downsized.gif'>"
+      - name: check if prs are dirty
+        if: contains(github.event.pull_request.labels.*.name, 'techlead')
+        uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
-          labels: review
-      - name: remove techlead label
-        if: contains(github.event.pull_request.labels.*.name, 'techlead') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: techlead
+          dirtyLabel: "merge conflicts"
+          removeOnDirtyLabel: "techlead"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request. <img src='https://media.giphy.com/media/0YUPDWMaHYZnIEW6Uo/giphy-downsized.gif'>"
