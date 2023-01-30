@@ -18,3 +18,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAX_RETRIES: 5
           WAIT_MS: 5000
+      - name: remove teamlead label
+        if: contains(github.event.pull_request.labels.*.name, 'teamlead') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: teamlead
+      - name: remove review label
+        if: contains(github.event.pull_request.labels.*.name, 'review') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: review
+      - name: remove techlead label
+        if: contains(github.event.pull_request.labels.*.name, 'techlead') && contains(github.event.pull_request.labels.*.name, 'merge conflicts')
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: techlead
