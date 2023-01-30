@@ -12,17 +12,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - name: Check PR labels action step
-        id: check_pr_labels
-        uses: shioyang/check-pr-labels-on-push-action@v1.0.9
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          labels: '["teamlead", "review", "techlead", "potom"]'
-        timeout-minutes: 5
-      - name: See result
-        run: echo "${{ steps.check_pr_labels.outputs.result }}"
       - name: check if prs are dirty
-        if: contains(steps.check_pr_labels.outputs.result, 'teamlead')
         uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
           dirtyLabel: "merge conflicts"
@@ -30,7 +20,6 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request. <img src='https://media.giphy.com/media/0YUPDWMaHYZnIEW6Uo/giphy-downsized.gif'>"
       - name: check if prs are dirty
-        if: contains(steps.check_pr_labels.outputs.result, 'review')
         uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
           dirtyLabel: "merge conflicts"
@@ -38,17 +27,9 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request. <img src='https://media.giphy.com/media/0YUPDWMaHYZnIEW6Uo/giphy-downsized.gif'>"
       - name: check if prs are dirty
-        if: contains(steps.check_pr_labels.outputs.result, 'techlead')
         uses: eps1lon/actions-label-merge-conflict@releases/2.x
         with:
           dirtyLabel: "merge conflicts"
           removeOnDirtyLabel: "techlead"
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request. <img src='https://media.giphy.com/media/0YUPDWMaHYZnIEW6Uo/giphy-downsized.gif'>"
-      - name: check if prs are dirty
-        if: contains(steps.check_pr_labels.outputs.result, 'potom')
-        uses: eps1lon/actions-label-merge-conflict@releases/2.x
-        with:
-          dirtyLabel: "merge conflicts"
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request. <img src='https://media.giphy.com/media/0YUPDWMaHYZnIEW6Uo/giphy-downsized.gif'>"
