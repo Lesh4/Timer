@@ -2,11 +2,11 @@ name: Merge notifier
 
 on:
   pull_request:
-    types: [merged]
-  workflow_dispatch:
+    types: [closed]
 
 jobs:
   send_msg:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     name: send Telegram message
     runs-on: ubuntu-latest
     steps:
