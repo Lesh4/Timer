@@ -13,4 +13,3 @@ python interface.py
 
 Внимание! Для корректной работы .exe файла его нужно запускать из папки interface!
 
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Lesh4&count_private=true&show_icons=true&theme=gotham)
