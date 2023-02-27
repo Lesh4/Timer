@@ -12,3 +12,5 @@ python interface.py
 2) Запустить исполняемый файл [interface.exe](https://github.com/Lesh4/Timer/tree/master/dist/interface/interface.exe)
 
 Внимание! Для корректной работы .exe файла его нужно запускать из папки interface!
+
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=lesh4)](https://github.com/anuraghazra/github-readme-stats)
