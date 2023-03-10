@@ -15,6 +15,7 @@ jobs:
           text: ${{ github.event.comment.body }}
           regex: '@all'
       - name: Send Telegram message
+        uses: appleboy/telegram-action@master
         if: ${{ steps.regex-match.outputs.match != '' }}
         with:
           to: ${{ secrets.TELEGRAM_TO }}
