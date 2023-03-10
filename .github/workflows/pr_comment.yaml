@@ -23,7 +23,7 @@ jobs:
           message: |
             ${{ github.actor }} added comment to PR. Check it out!
 
-            🔀 PR title: ${{ github.event.pull_request.title }}
+            🔀 PR title: ${{ github.event.title }}
 
             📝 Comment:
             ${{ github.event.comment.body }}
